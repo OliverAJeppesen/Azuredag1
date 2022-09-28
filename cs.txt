@@ -1,0 +1,68 @@
+void detection(unsigned char binary_image[BMP_WIDTH+2][BMP_HEIGTH+2],unsigned char output_image[BMP_WIDTH][BMP_HEIGTH][BMP_CHANNELS]){
+  int breaking = 0;
+  for (int x = 0; x < BMP_WIDTH-12; x++)
+  {
+    breaking = 0;
+    for (int y = 0; y < BMP_HEIGTH-12; y++)
+    {
+      breaking = 0;
+      for (int s = x; s < x+14; s++){
+        if(breaking == 1)
+        {
+          break;
+        }
+            for (int z = y; z < y+14; z++){
+              if(binary_image[s][z] == 255 && (z == y || z == y+13 || s == x || s == x+13)){
+              breaking = 1;
+              break;
+              }
+            }
+        }
+      for (int i = x+1; i < x+13; i++)
+      {
+        if(breaking == 1)
+        {
+          break;
+        }
+        for (int j = y+1; j < y+13; j++)
+        {
+          if (binary_image[i][j] == 255) 
+          {
+            for (int a = -7; a < 8; a++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                  if(c==0 || c==1){
+                    output_image[x+7+a-1][y+7-1][c] = 0;
+                    output_image[x+7+a-1][y+7-1-1][c] = 0;
+                    output_image[x+7+a-1][y+7+1-1][c] = 0;
+                    output_image[x+7-1][y+7+a-1][c] = 0;
+                    output_image[x+7-1-1][y+7+a-1][c] = 0;
+                    output_image[x+7+1-1][y+7+a-1][c] = 0;
+                  } else
+                    {
+                      output_image[x+7+a-1][y+7-1][c] = 255;
+                      output_image[x+7+a-1][y+7-1-1][c] = 255;
+                      output_image[x+7+a-1][y+7+1-1][c] = 255;
+                      output_image[x+7-1][y+7+a-1][c] = 255;
+                      output_image[x+7-1-1][y+7+a-1][c] = 255;
+                      output_image[x+7+1-1][y+7+a-1][c] = 255;
+                    }
+                }
+            }
+            printf("(%d,%d)\n",x+7+4-1,y+7-1);
+            count++;
+            for (int k = x+1; k < x+13; k++)
+            {
+              for (int h = y+1; h < y+13; h++)
+              {
+
+                binary_image[k][h] = 0;
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+}
