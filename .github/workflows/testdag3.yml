@@ -22,7 +22,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: This is my build my stage!
+        run: echo This is my build my stage!
 
   Test:
     # This stage is dependant of my 'build' job.
@@ -32,7 +32,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Run a one-line script
-        run: This is test stage!
+        run: echo This is test stage!
 
   Prod:
     # This can't run unless 'build' AND 'StageOne' have completed.
@@ -50,4 +50,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: Oliver has approved! Lets complete Prod
+        run: echo Oliver has approved! Lets complete Prod
